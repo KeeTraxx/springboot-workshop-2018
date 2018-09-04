@@ -38,7 +38,6 @@ Where to go from here: Reactive Spring, Websockets
 
 * Spring Framework
 * Spring Boot
-* Spring xxxx?
 
 <!-- .slide: class="master01 intro" -->
 
@@ -139,6 +138,7 @@ Prepares a Maven or Gradle project with all dependencies.
 ## Our first Spring Boot Application
 
 * Select `DevTools`, `Web`, `Actuator`, `JPA` dependencies
+* Generate Project
 * `unzip myapp.zip`
 * 1st terminal: `./gradlew build --continuous`
 * 2nd terminal: `./gradlew bootRun`
@@ -153,61 +153,44 @@ Open `http://localhost:8080/`
 
 ---
 
-## Our first REST Controller
+## Spring externalized configuration
 
-Create
+External configuration can be injected in Spring `@Bean`s (which encompasses almost everything in the Spring Framework) with `@Value`
 
-`src/main/java/.../controller/MembersController.java`
+Syntax: `@Value(${my.configuration.var:Default Value})`
+
+Order (simplified):
+
+1. Command line arguments (`java -jar myapp.jar --app.message=bonjour`)
+2. JSON Configuration in SPRING_APPLICATION_JSON
+3. Java System Properties (from `System.getProperties()` and `System.setProperty(...)`)
+4. OS Environment variables (`APP_MESSAGE=bonjour`)
+5. Profile specific outside jar (`application-{profile}.properties / .yml`)
+6. Profile specific inside jar (`application-{profile}.properties / .yml`)
+7. Main app configuration file (`application.properties / .yml`)
+
+----
+
+More details:
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config
+
+---
+
+### Example
 
 ```
 @RestController
-@RequestMapping("/api/members")
-public class MembersController {
-    @GetMapping
-    public List<String> getMembers() {
-        return Arrays.asList("Hanne", "Lure");
-    }
-}
-```
+@RequestMapping("/api/hello")
+public class HelloController {
 
-Try it out:
-http://localhost:8080/api/members
+  @Value("${app.message:No message defined}")
+  private String message;
 
----
-
-## Swagger UI (1)
-Add to `build.gradle`
-
-```
-compile('io.springfox:springfox-swagger2:2.9.2')
-compile('io.springfox:springfox-swagger-ui:2.9.2')
-```
-
----
-
-## Swagger UI (2)
-Create `/src/main/java/.../configuration/SwaggerConfig.java`
-
-```
-@Configuration
-@EnableSwagger2
-public class SwaggerConfig extends WebMvcConfigurationSupport {
-    @Bean
-    public Docket apis() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select().apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/api/**"))
-                .build();
-    }
-
-    @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+  @GetMapping
+  public String sayHello() {
+      return message;
+  }
 }
 ```
 
