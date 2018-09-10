@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "reveal-md --watch --theme https://keetraxx.github.io/pitc-revealjs-theme/puzzle.css",
-    "build": "for FILE in *.md; do reveal-md $FILE --static dist/$(basename $FILE) --theme https://keetraxx.github.io/pitc-revealjs-theme/puzzle.css; done"
+    "start": "reveal-md src --watch --theme https://keetraxx.github.io/pitc-revealjs-theme/puzzle.css",
+    "build": "for FILE in src/*.md; do reveal-md $FILE --static dist/$(basename $FILE) --theme https://keetraxx.github.io/pitc-revealjs-theme/puzzle.css; done"
   },
   "repository": {
     "type": "git",
