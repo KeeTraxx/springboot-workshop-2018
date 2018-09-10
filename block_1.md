@@ -1,4 +1,5 @@
 # Spring Boot
+
 ## PUZ Techworkshop 2018
 
 <small>13.09.2018 - tran@puzzle.ch</small>
@@ -19,18 +20,27 @@ https://github.com/KeeTraxx/springboot-workshop-2018
 
 ## Agenda
 
-1. Block 1: Vocabulary & Getting Started
+1. Block 1: Spring@Puzzle & Getting Started
 2. Block 2: In-Depth Spring (JPA, Security)
 3. Block 3: Where to go from here?
 
 Note: 
-Getting Started: Maven / Gradle, Spring Initialzr, Spring Actuators, Simple REST Controller
 
-In-Depth Spring: Spring Batch, Testing, Integration Testing
-
-Where to go from here: Reactive Spring, Websockets
+Some notes?
 
 <!-- .slide: class="master02" -->
+
+---
+
+## Spring @round Puzzle - where are we?
+
+* BLS-POC
+* HAST-OPR
+* BLS-FMSX
+* BLS-BAU
+* SBB-ZLD
+* SBB-TMS (TMS-L, FLUX)
+* SBB-WFT
 
 ---
 
