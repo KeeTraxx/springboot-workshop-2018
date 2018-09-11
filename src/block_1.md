@@ -22,12 +22,11 @@ https://github.com/KeeTraxx/springboot-workshop-2018
 
 **Block 1** What's Spring Framework & Getting Started
 
-**Block 2** In-Depth Spring (JPA, Security)
+**Block 2** Spring MVC + Spring Data + JPA
 
-**Block 3** Where to go from here?
+**Block 3** Spring Test, Exchange & where to go from here?
 
-
-Note: 
+Note:
 
 Some notes?
 
@@ -98,56 +97,31 @@ Wikipedia:
 
 ---
 
-## Demystifying Spring: Vocabulary
+## Spring Ecosystem
 
-* Spring Framework
-* Spring Boot
+![Desu](images/spring_ecosystem.svg)
 
-<!-- .slide: class="master01 intro" -->
+Note:
 
----
+Spring Tool Suite: Eclipse based development environment
 
-### Spring Framework: Spring DI
+Spring Roo: RAD - Rapid Appication Development, CLI based scaffolding helper. Comparable with Angular CLI, Ember CLI, ...
 
-Inversion of Control: Dependency Injection
+Spring Boot: Spring Standaloen Applications, Embedded Tomcat / Jetty / Undertow, Starter Configurations, Autoconfiguration, Actuators, no code generation and no xml configuration
 
-----
+Spring Data Rest: Automatically expose Spring Data Repositories as REST Endpoints
 
-### Spring Framework: Spring MVC
+Spring Mobile: Run code conditionally, depending on the device
 
-Model-View-Controller Pattern
+Spring Webflow: Flow of application (like forms), usually superseeded by JS applications now
 
-----
+Spring MVC: Model-View-Controller pattern for Spring Applications
 
-### Spring Framework: Spring Security
+Spring Security: Arbitary Security Model
 
-Authentication & Authorization:
+Spring XD: Now Spring Cloud Data Flow
 
-* Basic Auth
-* Oauth2 / OpenID Connect
-* ...
-
-----
-
-### Spring Framework: Spring Data
-
-Simplified Data Access to:
-
-* JPA / Hibernate
-* MyBatis
-* ORMLite
-
-----
-
-### Spring Framework: Spring Test
-
-Unit & Integration Testing (Support classes)
-
-----
-
-### Spring Framework: Integration of AspectJ
-
-Aspect Oriented Programming
+Spring Hadoop
 
 ---
 
@@ -159,21 +133,37 @@ Also a collection of "starter" packages with convention-over-configuration solut
 
 ---
 
-## Spring vs JEE?
+## Why Spring Boot? (1)
 
 ![Spring vs JEE](images/spring_vs_jee.png)
 
-----
+---
 
-## Advantages for developers
+## Why Spring Boot? (2)
+
+### Advantages for developers
 
 * Easy to connect a debugger
-* Easier to write unit / integration tests
-* Easier to distribute and run
 
 ----
 
-## Advantages for operators
+* Easier to write unit / integration tests
+
+----
+
+* Easier to distribute and run
+
+---
+
+## Why Spring Boot? (3)
+
+### Advantages for operators
 
 * No need to choose, configure, operate application servers.
 * Less problems with dependencies
+
+---
+
+Next up:
+
+[Exercise 1](block_1_exercise.md)

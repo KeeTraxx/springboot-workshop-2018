@@ -8,155 +8,107 @@
 
 ---
 
-## Our first REST Controller
+## Spring Data JPA
 
-Create
+### Introduction
 
-`src/main/java/.../controller/MembersController.java`
-
-```
-@RestController
-@RequestMapping("/api/heroes")
-public class HeroController {
-    @GetMapping
-    public List<String> getHeroes() {
-        return Arrays.asList("Superman", "Batman");
-    }
-}
-```
-
-Try it out:
-http://localhost:8080/api/members
+Spring Data JPA facilitates the access to `javax.persistence.*` and still allows you to work with JPA.
 
 ---
 
-## Swagger UI (1)
-Add to `build.gradle`
+### How to integrate Spring Data JPA
 
-```
-compile('io.springfox:springfox-swagger2:2.9.2')
-compile('io.springfox:springfox-swagger-ui:2.9.2')
-```
-
----
-
-## Swagger UI (2)
-Create `/src/main/java/.../configuration/SwaggerConfig.java`
-
-```
-@Configuration
-@EnableSwagger2
-public class SwaggerConfig extends WebMvcConfigurationSupport {
-    @Bean
-    public Docket apis() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select().apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/api/**"))
-                .build();
-    }
-
-    @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
-}
-```
+1. Add `spring-boot-starter-data-jpa` dependency to your Spring Boot Project
+2. Implement `@Entity` classes
+3. Add Repository interfaces
+4. Add custom queries
+5. Wire Repository interfaces with your `@Service` or `@RestController`
 
 ---
 
-## JPA
+### Implement `@Entity` classes
 
-<!-- .slide: class="master02 intro" -->
-
-Spring JPA Repositories are Java interfaces.
-
-* `Repository<PojoClass, IDClass>`
-* `CrudRepository<PojoClass, IDClass> extends Repository`
-* `PagingAndSortingRepository<PojoClass, IDClass> extends CrudRepository`
-
----
-
-## Step 1: Add a JPA Entity class
-
-```
+```java
 @Entity
-public class PuzzleMember {
+public class Joke {
   @Id
   @GeneratedValue
-  private Long id;
-  private String firstName;
-  private String lastName;
-  private int coffeeConsumption;
+  long id;
 
-  [... Getters and Setters]
+  private String joke;
+
+  // [...] SNIP getters and setters
 }
 ```
 
-## Step 2: Add a repository
+---
 
+### Add Repository interfaces
+
+Spring Data abstracts the data access layer for you with `Repository<T, ID>`, `CrudRepository<T, ID>` and `PagingAndSortingRepository<T, ID>`
+
+----
+
+### Example `CrudRepository<T, ID>`
+
+```java
+public interface JokeRepository extends CrudRepository<Joke, Long> {}
 ```
-public interface PuzzleMemberRepository extends CrudRepository<PuzzleMember, Long> {
 
+```java
+Iterable<T> findAll()
+T findById()
+T save(T entity)
+Iterable<T> saveAll(Iterable<T> entities)
+long count()
+void delete(S entity)
+void deleteAll() / deleteAll(Iteratble<S> entities)
+void deleteById()
+```
+
+----
+
+### Add custom queries by interface
+```java
+public interface JokeRepository extends CrudRepository<Joke, Long> {
+  Iterable<Joke> findTop3ByOrderByWordsDesc();
+  Iterable<Joke> findAllByWords(int words);
 }
 ```
 
-## Step 3: Inject the Service to your Controller
+[Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation)
 
+----
+
+### Add custom queries with `@Query`
+
+```java
+public interface JokeRepository extends CrudRepository<Joke, Long> {
+    @Query("SELECT j FROM Joke j WHERE j.joke LIKE %?1%")
+    Iterable<Joke> containsWord(String search);
+}
 ```
+
+---
+
+### Wire `Repository` with `@RestController`
+
+```java
 @RestController
-@RequestMapping("/api/members")
-public class PuzzleMember {
-  @Autowired
-  private PuzzleMemberRepository repo;
+@RequestMapping("/api/joke")
+public class JokeController {
 
-  @GetMapping
-  public Iterable<PuzzleMembers> getAllMembers() {
-    return repo.findAll();
-  }
+    @Autowired
+    private JokeRepository jokeRepository;
+
+    @GetMapping
+    public Iterable<Joke> getJokes() {
+        return jokeRepository.findAll();
+    }
+
+    @GetMapping("top3")
+    public Iterable<Joke> top3ByWords() {
+        return jokeRepository.findTop3ByOrderByWordsDesc();
+    }
 }
-```
-
----
-
-## CrudRepository methods
-
-* findAll()
-* findById()
-* save(S entity)
-* saveAll(Iterable<S> entities)
-* count()
-* delete(S entity)
-* deleteAll() / deleteAll(Iteratble<S> entities)
-* deleteById()
-
----
-
-## Add your own methods
-
-By interface name:
-
-```
-Iterable<PuzzleMember> findByFirstName(@Param("firstName") String firstName);
-```
-
-----
-
-By interface name (advanced):
-```
-Iterable<PuzzleMember> findTop3ByOrderByCoffeeConsumptionDesc();
-```
-
-Black magic explained: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
-
-----
-
-By custom query:
-
-```
-@Query("SELECT m FROM PuzzleMember m WHERE m.coffeeConsumption >= ?1")
-Iterable<PuzzleMember> findByCoffeeConsumption(@Param("minimumConsumption") int minimumConsumption);
 ```

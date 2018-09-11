@@ -4,14 +4,16 @@
 
 ---
 
-Goals:
+## Goals:
 
 1. Use [Spring Initialzr](https://start.spring.io/) to generate a project
 2. Static web resources
 3. Spring externalized configuration
-4. First basic REST Endpoint
-5. Deploy to Openshift
-6. Get to know Spring Actuators
+4. First basic `@RestController`
+5. Bonus: Deploy to Openshift
+6. Bonus: Get to know Spring Actuators
+7. Bonus: Advanced `@RestController`
+8. Bonus: Throwing Exceptions in `@RestController`
 
 ---
 
@@ -44,9 +46,14 @@ Open `http://localhost:8080/` in your browser.
 
 ## Step 3: Spring externalized configuration
 
-External configuration can be injected in Spring `@Bean`s (which encompasses almost everything in the Spring Framework) with `@Value`
+Create the file `src/main/resources/application.properties`
 
-Syntax: `@Value(${my.configuration.var:Default Value})`
+Contents:
+```
+my.custom.app.message=Hello World
+```
+
+----
 
 Order (simplified):
 
@@ -68,12 +75,14 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-ext
 
 ### Step 4: Rest Controller Example
 
+Create the file `src/main/java/.../controllers/HelloController.java`
+
 ```
 @RestController
 @RequestMapping("/api/hello")
 public class HelloController {
 
-  @Value("${app.message:No message defined}")
+  @Value("${my.custom.app.message:No message defined}")
   private String message;
 
   @GetMapping
@@ -82,6 +91,10 @@ public class HelloController {
   }
 }
 ```
+----
+
+1. Restart your application
+2. Check if [localhost:8080/api/hello](http://localhost:8080/api/hello) returns your value
 
 ---
 
@@ -94,9 +107,20 @@ public class HelloController {
 
 ---
 
-## Step 6: Actuators
+## Step 6: Activate Actuators
 
-https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints
+In
+
+`src/main/resources/application.properties`
+
+add the following line:
+
+```text
+# Don't do this in production without security
+management.endpoints.web.exposure.include=*
+```
+
+[Read more...](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints)
 
 ----
 
@@ -115,6 +139,50 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production
 * [actuator/mappings](http://localhost:8080/actuator/mappings)
 * [actuator/scheduledtasks](http://localhost:8080/actuator/scheduledtasks)
 * [actuator/sessions](http://localhost:8080/actuator/sessions)
+
+---
+
+## Step 7: Advanced `@RestController` stuff
+
+Return lists:
+
+```java
+private final List<String> heroes = Lists.newArrayList("Batman", "Catwoman");
+
+// Returns JSON Array of heroes
+@GetMapping
+public List<String> getHeroes() {
+  return heroes;
+}
+```
+
+----
+
+Get URL Variables:
+
+```java
+@GetMapping("{letter}")
+public Stream<String> getHeroesStartingWithLetter(@PathVariable String letter) {
+    return heroes.stream().filter( name -> name.startsWith(letter));
+}
+```
+
+---
+
+## Step 8: Throw Exceptions in `@RestController`
+
+Annotate an `Exception` class
+
+```java
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class NotFoundException() extends Exception {
+    public NotFoundException(String s) {
+      super(s);
+  }
+}
+```
+
+And then just throw it.
 
 ---
 
