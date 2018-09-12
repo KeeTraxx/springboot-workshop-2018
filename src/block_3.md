@@ -12,7 +12,6 @@
 
 1. Unit Testing
 2. Integration Testing
-3. e2e Testing?
 
 ---
 
@@ -28,12 +27,6 @@
 ### What's a integration test?
 
 * Tests multiple classes working togehter.
-
----
-
-### What's an e2e test?
-
-* Tests using a mocked browser engine.
 
 ---
 
@@ -101,6 +94,8 @@ public class PuzzleMemberControllerTests {
 
 ### Example: Integration test
 
+[Link to example app test](https://github.com/KeeTraxx/springboot-workshop-2018-app/blob/master/src/test/java/ch/puzzle/springboot/workshop/example/PuzzleMemberIntegrationTests.java)
+
 ---
 
 ### Good to know
@@ -112,10 +107,15 @@ public class PuzzleMemberControllerTests {
 
 ## Free time
 
-* Talk among yourselves
+* Questions?
+* Share experiences?
+* Work on your application
 * Explore more Spring Boot stuff:
  - WebFlux
  - WebSockets
  - Spring Cloud
  - Spring Hateoas
  - Spring Security
+ - [...]
+
+## Thank you!
