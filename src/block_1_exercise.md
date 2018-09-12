@@ -105,7 +105,7 @@ public class HelloController {
 
 ---
 
-## (optional) Step 5: Deploy to Openshift
+## Step 5: Deploy to Openshift
 
 * Login with Puzzle Account: `oc login https://techlab.openshift.ch`
 * Create a project `oc new-project techworkshop-<YOUR_INITIALS>`
@@ -166,7 +166,7 @@ public List<String> getHeroes() {
 
 ----
 
-Get URL Variables:
+Path Variables:
 
 ```java
 @GetMapping("{letter}")
@@ -174,6 +174,21 @@ public Stream<String> getHeroesStartingWithLetter(@PathVariable String letter) {
     return heroes.stream().filter( name -> name.startsWith(letter));
 }
 ```
+
+URL: /heroes/b
+
+----
+
+HTTP GET Variables:
+
+```java
+@GetMapping
+public Stream<String> getHeroesStartingWithLetter(@RequestParam String letter) {
+    return heroes.stream().filter( name -> name.startsWith(letter));
+}
+```
+
+URL: /heroes?letter=b
 
 ---
 

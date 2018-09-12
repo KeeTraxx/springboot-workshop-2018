@@ -194,3 +194,5 @@ Show IDEA debug main
 Next up:
 
 Exercise to flex your muscles!
+
+![](images/teacher.jpg)
