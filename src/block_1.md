@@ -1,3 +1,5 @@
+![img](https://upload.wikimedia.org/wikipedia/en/thumb/2/20/Pivotal_Java_Spring_Logo.png/180px-Pivotal_Java_Spring_Logo.png)
+
 # Spring Framework
 
 ## PUZ Techworkshop 2018
@@ -8,9 +10,9 @@
 
 ---
 
-## Infos
+## Workshop resources
 
-Workshop resources: https://github.com/KeeTraxx/springboot-workshop-2018
+https://github.com/KeeTraxx/springboot-workshop-2018
 
 Notes:
 
@@ -112,6 +114,26 @@ Wikipedia:
 
 ---
 
+## Spring Ecosystem
+
+![Desu](images/spring_ecosystem.svg)
+
+Note:
+
+Spring Batch
+
+---
+
+### Spring Boot
+
+![Spring Boot](images/spring_boot.jpg)
+
+Library to create **standalone Spring applications**.
+
+Also a collection of **"starter" packages** to simplify application configuration, using conventation over configuration.
+
+---
+
 ## Spring Boot @round Puzzle
 
 * BLS-POC
@@ -136,24 +158,6 @@ SBB-WFT: Wartefristentool
 
 ---
 
-## Spring Ecosystem
-
-![Desu](images/spring_ecosystem.svg)
-
-Note:
-
-Spring Batch
-
----
-
-### Spring Boot
-
-Library to create **standalone Spring applications**.
-
-Also a collection of **"starter" packages** with convention-over-configuration solutions.
-
----
-
 ## Why Spring Boot? (1)
 
 ![Spring vs JEE](images/spring_vs_jee.png)
@@ -165,23 +169,15 @@ Also a collection of **"starter" packages** with convention-over-configuration s
 ### Advantages for developers
 
 * Easy to connect a debugger
+* Easier to write unit / integration tests
+* Easier to debug unit / integration tests
+* Helps you with mocking and isolation of tests
+* Deploy as .jar and .war
+* Less problems with dependencies
 
 Note:
 
 Show IDEA debug main
-
-----
-
-* Easier to write unit / integration tests
-* Easier to debug unit / integration tests
-* Helps you with Mocking and Isolation of tests
-
-----
-
-Easier to distribute and run:
-
-* Deploy as .jar and .war
-* Less problems with dependencies
 
 ---
 
@@ -191,6 +187,7 @@ Easier to distribute and run:
 
 * No need to choose, configure, operate application servers.
 * Less problems with dependencies
+* Less compatibility problems
 
 ---
 

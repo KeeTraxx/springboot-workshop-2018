@@ -25,6 +25,13 @@ Prepares a Maven or Gradle project with all dependencies.
 
 ![](images/initialzr.png) <!-- .element style="max-width: 40%;" -->
 
+Note:
+
+Advantages
+
+* Recent version of Spring Boot
+* Dependencies are likely to work together
+
 ---
 
 ## Step 1: Spring Intialzr (2)
@@ -98,7 +105,7 @@ public class HelloController {
 
 ---
 
-## Step 5: Deploy to Openshift
+## (optional) Step 5: Deploy to Openshift
 
 * Login with Puzzle Account: `oc login https://techlab.openshift.ch`
 * Create a project `oc new-project techworkshop-<YOUR_INITIALS>`
