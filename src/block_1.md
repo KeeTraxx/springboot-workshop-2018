@@ -148,9 +148,9 @@ Spring Batch
 
 ### Spring Boot
 
-Library to create standalone Spring applications.
+Library to create **standalone Spring applications**.
 
-Also a collection of "starter" packages with convention-over-configuration solutions.
+Also a collection of **"starter" packages** with convention-over-configuration solutions.
 
 ---
 
@@ -196,4 +196,4 @@ Easier to distribute and run:
 
 Next up:
 
-[Exercise 1](block_1_exercise.md)
+Exercise to flex your muscles!

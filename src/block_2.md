@@ -117,4 +117,4 @@ public class JokeController {
 
 Next up:
 
-[Exercise 2](block_2_exercise.md)
+Exercise to flex your muscles!
