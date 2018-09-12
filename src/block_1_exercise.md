@@ -1,6 +1,6 @@
 # Block 1: Exercise
 
-<!-- .slide: class="master02 intro" -->
+<!-- .slide: class="master01" -->
 
 ---
 
@@ -100,10 +100,11 @@ public class HelloController {
 
 ## Step 5: Deploy to Openshift
 
-* Create a project `oc new-project pitc-techworkshop-kt`
+* Login with Puzzle Account: `oc login https://techlab.openshift.ch`
+* Create a project `oc new-project techworkshop-<YOUR_INITIALS>`
 * Create a new app `oc new-app --name=web keetraxx/s2i-gradle-springboot~.`
 * Create a route `oc expose svc/web`
-* Start a build `oc start-build web --from-dir=.`
+* Start a build `oc start-build web --follow --from-dir=.`
 
 ---
 
@@ -182,7 +183,17 @@ public class NotFoundException() extends Exception {
 }
 ```
 
+----
+
 And then just throw it.
+
+```java
+@GetMapping("throw-a-404")
+public void throwStuff() {
+  throw new NotFoundException("Too lazy to look for anything.");
+}
+
+```
 
 ---
 

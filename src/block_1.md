@@ -4,33 +4,60 @@
 
 <small>13.09.2018 - tran@puzzle.ch</small>
 
-Note: Authentication, Encoding, Date and Timezone
-
 <!-- .slide: class="master01" -->
 
 ---
 
 ## Infos
 
-Workshop resources:
+Workshop resources: https://github.com/KeeTraxx/springboot-workshop-2018
 
-https://github.com/KeeTraxx/springboot-workshop-2018
+Notes:
+
+Has links to slides and example app.
+
+Interrupt me and ask questions!
+
+---
+
+## Member introduction
+
+Your know-how about Java, Spring / Spring Boot?
 
 ---
 
 ## Agenda
 
-**Block 1** What's Spring Framework & Getting Started
+### Block 1 (10:25 - 12:00)
 
-**Block 2** Spring MVC + Spring Data + JPA
+* What's Spring Framework & Getting Started
+* Exercise
+* js: Spring Security + Spring Security ACL
 
-**Block 3** Spring Test, Exchange & where to go from here?
+<!-- .slide: class="master01" -->
+
+----
+
+### Block 2 (13:35 - 15:00)
+
+* Introduction Spring Data JPA
+* Exercise
+
+<!-- .slide: class="master02" -->
+
+----
+
+### Block 3 (15:20 - 16:40)
+
+* Spring Boot Testing
+* Exchange
+* Where to go from here?
 
 Note:
 
 Some notes?
 
-<!-- .slide: class="master02" -->
+<!-- .slide: class="master03" -->
 
 ---
 
@@ -46,9 +73,10 @@ Wikipedia:
 
 ### Java
 
-* JEE (formerly J2EE)
+* JEE (formerly J2EE) + jax-rs + other stuffs
 * Dropwizard
 * Spark
+* Grails (based on Spring Boot now)
 
 ----
 
@@ -84,7 +112,7 @@ Wikipedia:
 
 ---
 
-## Spring @round Puzzle
+## Spring Boot @round Puzzle
 
 * BLS-POC
 * HAST-OPR
@@ -94,6 +122,17 @@ Wikipedia:
 * SBB-ZLD
 * SBB-TMS (TMS-L, FLUX)
 * SBB-WFT
+* ...
+
+Note:
+
+HAST-OPR: Spaltlampenregistrierung
+HAST-REG: Produkteregistrierung
+BLS-FMSX: Flottenmanager (neu)
+BLS-BAU: Baustellen Tool
+SBB-ZLD: Zuglenkung
+SBB-TMS: Fahrplanoptimierung
+SBB-WFT: Wartefristentool
 
 ---
 
@@ -103,25 +142,7 @@ Wikipedia:
 
 Note:
 
-Spring Tool Suite: Eclipse based development environment
-
-Spring Roo: RAD - Rapid Appication Development, CLI based scaffolding helper. Comparable with Angular CLI, Ember CLI, ...
-
-Spring Boot: Spring Standaloen Applications, Embedded Tomcat / Jetty / Undertow, Starter Configurations, Autoconfiguration, Actuators, no code generation and no xml configuration
-
-Spring Data Rest: Automatically expose Spring Data Repositories as REST Endpoints
-
-Spring Mobile: Run code conditionally, depending on the device
-
-Spring Webflow: Flow of application (like forms), usually superseeded by JS applications now
-
-Spring MVC: Model-View-Controller pattern for Spring Applications
-
-Spring Security: Arbitary Security Model
-
-Spring XD: Now Spring Cloud Data Flow
-
-Spring Hadoop
+Spring Batch
 
 ---
 
@@ -129,7 +150,7 @@ Spring Hadoop
 
 Library to create standalone Spring applications.
 
-Also a collection of "starter" packages with convention-over-configuration solution.
+Also a collection of "starter" packages with convention-over-configuration solutions.
 
 ---
 
@@ -145,13 +166,22 @@ Also a collection of "starter" packages with convention-over-configuration solut
 
 * Easy to connect a debugger
 
+Note:
+
+Show IDEA debug main
+
 ----
 
 * Easier to write unit / integration tests
+* Easier to debug unit / integration tests
+* Helps you with Mocking and Isolation of tests
 
 ----
 
-* Easier to distribute and run
+Easier to distribute and run:
+
+* Deploy as .jar and .war
+* Less problems with dependencies
 
 ---
 

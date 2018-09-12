@@ -4,7 +4,7 @@
 
 <small>13.09.2018 - tran@puzzle.ch</small>
 
-<!-- .slide: class="master01" -->
+<!-- .slide: class="master02" -->
 
 ---
 
@@ -14,13 +14,15 @@
 2. Implement a Spring Data `CrudRepository<T, ID>`
 3. Implement a `@RestController` that leverages the `CrudRepository`
 4. Integrate Swagger UI
-5. Bonus: Write some queries
+5. Bonus: Fill the database with data at start using `@PostConstruct`
+6. Bonus: Write some additional queries
+7. Bonus: Implement a pageable api using `PagingAndSortingRepository`
 
 ---
 
 ## Step 1: Implement a JPA Entity
 
-You're free to do whatever you want, but here's an example:
+Example:
 
 ```java
 @Entity
@@ -44,13 +46,13 @@ Optional: Use Lombok to lessen boilerplate code.
 
 ## Step 2: Implement a Spring Data `CrudRepository<T, ID>`
 
-Look at [Block 2 slides](block_2.md)
+Look at [Block 2 slides](block_2.md#/4)
 
 ---
 
 ## Step 3: Implement a `@RestController`
 
-Look at [Block 2 slides](block_2.md)
+Look at [Block 2 slides](block_2.md#/5)
 
 ---
 
@@ -106,4 +108,10 @@ Open http://localhost:8080/
 
 ---
 
-## Bonus - Step 5: Write some custom queries
+## Bonus - Step 5: Fill the database with data at start using `@PostConstruct`
+
+---
+
+## Bonus - Step 6: Write some custom queries
+
+Look at [Block 2 slides](block_2.md#/4/2)

@@ -1,14 +1,12 @@
 # Spring Boot Block 2
 
-## PUZ Techworkshop 2018
+## Spring Data JPA
 
 <small>13.09.2018 - tran@puzzle.ch</small>
 
-<!-- .slide: class="master01" -->
+<!-- .slide: class="master02" -->
 
 ---
-
-## Spring Data JPA
 
 ### Introduction
 
@@ -20,7 +18,7 @@ Spring Data JPA facilitates the access to `javax.persistence.*` and still allows
 
 1. Add `spring-boot-starter-data-jpa` dependency to your Spring Boot Project
 2. Implement `@Entity` classes
-3. Add Repository interfaces
+3. Add `Repository` interfaces
 4. Add custom queries
 5. Wire Repository interfaces with your `@Service` or `@RestController`
 
@@ -55,6 +53,8 @@ Spring Data abstracts the data access layer for you with `Repository<T, ID>`, `C
 public interface JokeRepository extends CrudRepository<Joke, Long> {}
 ```
 
+Automatically exposes:
+
 ```java
 Iterable<T> findAll()
 T findById()
@@ -68,7 +68,7 @@ void deleteById()
 
 ----
 
-### Add custom queries by interface
+### Add magic queries by interface
 ```java
 public interface JokeRepository extends CrudRepository<Joke, Long> {
   Iterable<Joke> findTop3ByOrderByWordsDesc();
@@ -76,7 +76,7 @@ public interface JokeRepository extends CrudRepository<Joke, Long> {
 }
 ```
 
-[Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation)
+[Read more...](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation)
 
 ----
 
@@ -112,3 +112,9 @@ public class JokeController {
     }
 }
 ```
+
+---
+
+Next up:
+
+[Exercise 2](block_2_exercise.md)

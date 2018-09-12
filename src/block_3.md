@@ -1,10 +1,10 @@
 # Spring Boot Block 3
 
-## PUZ Techworkshop 2018
+## Spring Boot Testing
 
 <small>13.09.2018 - tran@puzzle.ch</small>
 
-<!-- .slide: class="master01" -->
+<!-- .slide: class="master03" -->
 
 ---
 
@@ -49,5 +49,73 @@
 
 ---
 
-### Test our controller
+### Example: Isolated `@RestController` test
 
+```java
+import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(PuzzleMemberController.class)
+public class PuzzleMemberControllerTests {
+
+    @Autowired
+    private MockMvc mvc;
+
+    @MockBean
+    private PuzzleMemberRepository repository;
+
+    private PuzzleMember mockPuzzleMember = new PuzzleMember("Hans", "Muster", 3);
+
+    @Test
+    public void incrementCoffeeConsumption() throws Exception {
+        given(repository.save(mockPuzzleMember)).willReturn(mockPuzzleMember);
+        given(repository.findById(42L)).willReturn(Optional.of(mockPuzzleMember));
+
+        mvc.perform(post("/api/puzzle-members/drink-coffee")
+                .contentType(MediaType.TEXT_PLAIN)
+                .content("42"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.coffeeConsumption", is(4)))
+                .andExpect(jsonPath("$.firstName", is("Hans")))
+                .andExpect(jsonPath("$.lastName", is("Muster")));
+    }
+
+    @Test
+    public void noUserFound() throws Exception {
+        mvc.perform(post("/api/puzzle-members/drink-coffee")
+                .contentType(MediaType.TEXT_PLAIN)
+                .content("43"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+}
+
+```
+
+---
+
+### Example: Integration test
+
+---
+
+### Good to know
+
+* Put a `application.properties` in `/src/test/resources`
+* Tests will always expect all `@Bean`s to be present or mocked
+
+---
+
+## Free time
+
+* Talk among yourselves
+* Explore more Spring Boot stuff:
+ - WebFlux
+ - WebSockets
+ - Spring Cloud
+ - Spring Hateoas
+ - Spring Security

@@ -12,3 +12,7 @@
 
 1. `git clone https://github.com/KeeTraxx/springboot-workshop-2018.git`
 2. `npm start`
+
+## Example App
+
+https://github.com/KeeTraxx/springboot-workshop-2018-app
