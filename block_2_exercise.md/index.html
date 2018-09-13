@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>reveal-md</title>
+        <link rel="stylesheet" href="./css/reveal.css">
+        <link rel="stylesheet" href="https://keetraxx.github.io/pitc-revealjs-theme/puzzle.css" id="theme">
+        <link rel="stylesheet" href="./css/highlight/zenburn.css">
+        <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print">
+
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template"># Block 2: Exercise
+
+## PUZ Techworkshop 2018
+
+<small>13.09.2018 - tran@puzzle.ch</small>
+
+<!-- .slide: class="master02" -->
+</script></section><section  data-markdown><script type="text/template">
+## Goals
+
+1. Implement a JPA Entity
+2. Implement a Spring Data `CrudRepository<T, ID>`
+3. Implement a `@RestController` that leverages the `CrudRepository`
+4. Integrate Swagger UI
+5. Bonus: Fill the database with data at start using `@PostConstruct`
+6. Bonus: Write some additional queries
+7. Bonus: Implement a pageable api using `PagingAndSortingRepository`
+</script></section><section  data-markdown><script type="text/template">
+## Step 1: Implement a JPA Entity
+
+Example:
+
+```java
+@Entity
+public class PuzzleMember {
+    @Id
+    @GeneratedValue
+    long id;
+
+    private String firstName;
+    private String lastName;
+
+    private int coffeeConsumption;
+
+    // [Constructors, Getters, Setters...]
+}
+```
+
+Optional: Use Lombok to lessen boilerplate code.
+</script></section><section  data-markdown><script type="text/template">
+## Step 2: Implement a Spring Data `CrudRepository<T, ID>`
+
+Look at [Block 2 slides](block_2.md#/4)
+</script></section><section  data-markdown><script type="text/template">
+## Step 3: Implement a `@RestController`
+
+Look at [Block 2 slides](block_2.md#/5)
+</script></section><section ><section data-markdown><script type="text/template">
+## Step 4: Integrate Swagger UI (1)
+Add to `build.gradle`
+
+```groovy
+compile('io.springfox:springfox-swagger2:2.9.2')
+compile('io.springfox:springfox-swagger-ui:2.9.2')
+```
+</script></section><section data-markdown><script type="text/template">
+## Step 4: Integrate Swagger UI (2)
+Create `/src/main/java/.../configuration/SwaggerConfig.java`
+
+```java
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig extends WebMvcConfigurationSupport {
+    @Bean
+    public Docket apis() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select().apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.ant("/api/**"))
+                .build();
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "swagger-ui.html");
+    }
+
+
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+}
+```
+</script></section><section data-markdown><script type="text/template">
+## Step 4: Integrate Swagger UI (3)
+
+Check Swagger UI
+
+Open http://localhost:8080/
+</script></section></section><section  data-markdown><script type="text/template">
+## Bonus - Step 5: Fill the database with data at start using `@PostConstruct`
+</script></section><section  data-markdown><script type="text/template">
+## Bonus - Step 6: Write some custom queries
+
+Look at [Block 2 slides](block_2.md#/4/2)
+</script></section></div>
+        </div>
+
+        <script src="./lib/js/head.min.js"></script>
+        <script src="./js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: './plugin/zoom-js/zoom.js', async: true },
+              { src: './plugin/notes/notes.js', async: true },
+              { src: './plugin/math/math.js', async: true }
+            ];
+
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default', // none/fade/slide/convex/concave/zoom
+              dependencies: deps
+            };
+
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+
+            var options = {};
+            options = extend(defaultOptions, options, queryOptions);
+        </script>
+
+          <script src="./_assets/src/scripts/code-copy.js"></script>
+
+        <script>
+          Reveal.initialize(options);
+        </script>
+    </body>
+</html>

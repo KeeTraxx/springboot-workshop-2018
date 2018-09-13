@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>reveal-md</title>
+        <link rel="stylesheet" href="./css/reveal.css">
+        <link rel="stylesheet" href="https://keetraxx.github.io/pitc-revealjs-theme/puzzle.css" id="theme">
+        <link rel="stylesheet" href="./css/highlight/zenburn.css">
+        <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print">
+
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template"># Spring Boot Block 2
+
+## Spring Data JPA
+
+<small>13.09.2018 - tran@puzzle.ch</small>
+
+<!-- .slide: class="master02" -->
+</script></section><section  data-markdown><script type="text/template">
+### Introduction
+
+Spring Data JPA facilitates the access to `javax.persistence.*` and still allows you to work with JPA.
+</script></section><section  data-markdown><script type="text/template">
+### How to integrate Spring Data JPA
+
+1. Add `spring-boot-starter-data-jpa` dependency to your Spring Boot Project
+2. Implement `@Entity` classes
+3. Add `Repository` interfaces
+4. Add custom queries
+5. Wire Repository interfaces with your `@Service` or `@RestController`
+</script></section><section  data-markdown><script type="text/template">
+### Implement `@Entity` classes
+
+```java
+@Entity
+public class Joke {
+  @Id
+  @GeneratedValue
+  long id;
+
+  private String joke;
+
+  // [...] SNIP getters and setters
+}
+```
+</script></section><section ><section data-markdown><script type="text/template">
+### Add Repository interfaces
+
+Spring Data abstracts the data access layer for you with `Repository<T, ID>`, `CrudRepository<T, ID>` and `PagingAndSortingRepository<T, ID>`
+</script></section><section data-markdown><script type="text/template">
+### Example `CrudRepository<T, ID>`
+
+```java
+public interface JokeRepository extends CrudRepository<Joke, Long> {}
+```
+
+Automatically exposes:
+
+```java
+Iterable<T> findAll()
+T findById()
+T save(T entity)
+Iterable<T> saveAll(Iterable<T> entities)
+long count()
+void delete(S entity)
+void deleteAll() / deleteAll(Iteratble<S> entities)
+void deleteById()
+```
+</script></section><section data-markdown><script type="text/template">
+### Add magic queries by interface
+```java
+public interface JokeRepository extends CrudRepository<Joke, Long> {
+  Iterable<Joke> findTop3ByOrderByWordsDesc();
+  Iterable<Joke> findAllByWords(int words);
+}
+```
+
+[Read more...](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation)
+</script></section><section data-markdown><script type="text/template">
+### Add custom queries with `@Query`
+
+```java
+public interface JokeRepository extends CrudRepository<Joke, Long> {
+    @Query("SELECT j FROM Joke j WHERE j.joke LIKE %?1%")
+    Iterable<Joke> containsWord(String search);
+}
+```
+</script></section></section><section  data-markdown><script type="text/template">
+### Wire `Repository` with `@RestController`
+
+```java
+@RestController
+@RequestMapping("/api/joke")
+public class JokeController {
+
+    @Autowired
+    private JokeRepository jokeRepository;
+
+    @GetMapping
+    public Iterable<Joke> getJokes() {
+        return jokeRepository.findAll();
+    }
+
+    @GetMapping("top3")
+    public Iterable<Joke> top3ByWords() {
+        return jokeRepository.findTop3ByOrderByWordsDesc();
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+Next up:
+
+Exercise to flex your muscles!</script></section></div>
+        </div>
+
+        <script src="./lib/js/head.min.js"></script>
+        <script src="./js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: './plugin/zoom-js/zoom.js', async: true },
+              { src: './plugin/notes/notes.js', async: true },
+              { src: './plugin/math/math.js', async: true }
+            ];
+
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default', // none/fade/slide/convex/concave/zoom
+              dependencies: deps
+            };
+
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+
+            var options = {};
+            options = extend(defaultOptions, options, queryOptions);
+        </script>
+
+          <script src="./_assets/src/scripts/code-copy.js"></script>
+
+        <script>
+          Reveal.initialize(options);
+        </script>
+    </body>
+</html>
