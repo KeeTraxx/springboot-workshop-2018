@@ -14,6 +14,11 @@
 
 https://github.com/KeeTraxx/springboot-workshop-2018
 
+## WIFI
+
+SSID: InnoSpace
+PW: InnoGuest31
+
 Notes:
 
 Has links to slides and example app.

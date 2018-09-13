@@ -3,8 +3,10 @@
 ## Online links to slides
 
 [Block 1](https://keetraxx.github.io/springboot-workshop-2018/block_1.md)
+[Block 1](https://keetraxx.github.io/springboot-workshop-2018/block_1_exercise.md)
 
 [Block 2](https://keetraxx.github.io/springboot-workshop-2018/block_2.md)
+[Block 2](https://keetraxx.github.io/springboot-workshop-2018/block_2_exercise.md)
 
 [Block 3](https://keetraxx.github.io/springboot-workshop-2018/block_3.md)
 
